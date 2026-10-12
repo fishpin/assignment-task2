@@ -13,9 +13,10 @@ import * as MapSettings from '../constants/MapSettings';
 import { AuthenticationContext } from '../context/AuthenticationContext';
 import * as api from '../services/api';
 import { Event } from '../types/Event';
+import { AppStackParamList } from '../types/Navigation';
 import { getEventStatus } from '../utils/events';
 
-export default function EventsMap(props: StackScreenProps<any>) {
+export default function EventsMap(props: StackScreenProps<AppStackParamList, 'EventsMap'>) {
     const { navigation } = props;
     const authenticationContext = useContext(AuthenticationContext);
     const mapViewRef = useRef<MapView>(null);
@@ -45,7 +46,9 @@ export default function EventsMap(props: StackScreenProps<any>) {
 
     const handleNavigateToCreateEvent = () => {};
 
-    const handleNavigateToEventDetails = () => {};
+    const handleNavigateToEventDetails = (event: Event) => {
+        navigation.navigate('EventDetails', { event });
+    };
 
     const handleLogout = async () => {
         AsyncStorage.multiRemove(['userInfo', 'accessToken']).then(() => {
@@ -74,7 +77,7 @@ export default function EventsMap(props: StackScreenProps<any>) {
                         key={event.id}
                         coordinate={event.position}
                         status={getEventStatus(event, authenticationContext?.value?.id)}
-                        onPress={handleNavigateToEventDetails}
+                        onPress={() => handleNavigateToEventDetails(event)}
                     />
                 ))}
             </MapView>

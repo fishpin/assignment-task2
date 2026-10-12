@@ -1,5 +1,6 @@
 import axios, { AxiosResponse } from 'axios';
 import { Event } from '../types/Event';
+import { User } from '../types/User';
 
 const api = axios.create({
     // Before running your 'json-server', get your computer's IP address and
@@ -21,4 +22,8 @@ export const authenticateUser = (email: string, password: string): Promise<Axios
 
 export const getUpcomingEvents = (): Promise<AxiosResponse<Event[]>> => {
     return api.get(`/events`, { params: { dateTime_gte: new Date().toISOString() } });
+};
+
+export const getUser = (id: string): Promise<AxiosResponse<User>> => {
+    return api.get(`/users/${id}`);
 };
