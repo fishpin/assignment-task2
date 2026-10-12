@@ -27,3 +27,7 @@ export const getUpcomingEvents = (): Promise<AxiosResponse<Event[]>> => {
 export const getUser = (id: string): Promise<AxiosResponse<User>> => {
     return api.get(`/users/${id}`);
 };
+
+export const updateEventVolunteers = (eventId: string, volunteersIds: string[]): Promise<AxiosResponse<Event>> => {
+    return api.patch(`/events/${eventId}`, { volunteersIds });
+};

@@ -15,7 +15,7 @@ const markerImages: Record<EventStatus, ImageSourcePropType> = {
 interface EventMarkerProps {
     coordinate: LatLng;
     status: EventStatus;
-    onPress: () => void;
+    onPress?: () => void;
 }
 
 export default function EventMarker({ coordinate, status, onPress }: EventMarkerProps) {
