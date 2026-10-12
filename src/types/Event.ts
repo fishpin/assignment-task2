@@ -11,3 +11,5 @@ export interface Event {
     volunteersNeeded: number;
     volunteersIds: string[];
 }
+
+export type EventStatus = 'volunteered' | 'full' | 'open';

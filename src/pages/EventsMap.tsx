@@ -4,15 +4,16 @@ import { useIsFocused } from '@react-navigation/native';
 import { StackScreenProps } from '@react-navigation/stack';
 import * as Location from 'expo-location';
 import React, { useContext, useEffect, useRef, useState } from 'react';
-import { Image, StyleSheet, Text, View } from 'react-native';
+import { StyleSheet, Text, View } from 'react-native';
 import { RectButton } from 'react-native-gesture-handler';
-import MapView, { LatLng, Marker, PROVIDER_GOOGLE } from 'react-native-maps';
+import MapView, { LatLng, PROVIDER_GOOGLE } from 'react-native-maps';
 import customMapStyle from '../../map-style.json';
+import EventMarker from '../components/EventMarker';
 import * as MapSettings from '../constants/MapSettings';
 import { AuthenticationContext } from '../context/AuthenticationContext';
-import mapMarkerImg from '../images/map-marker.png';
 import * as api from '../services/api';
 import { Event } from '../types/Event';
+import { getEventStatus } from '../utils/events';
 
 export default function EventsMap(props: StackScreenProps<any>) {
     const { navigation } = props;
@@ -68,20 +69,14 @@ export default function EventsMap(props: StackScreenProps<any>) {
                 moveOnMarkerPress={false}
                 mapPadding={MapSettings.EDGE_PADDING}
             >
-                {events.map((event) => {
-                    return (
-                        <Marker
-                            key={event.id}
-                            coordinate={{
-                                latitude: event.position.latitude,
-                                longitude: event.position.longitude,
-                            }}
-                            onPress={handleNavigateToEventDetails}
-                        >
-                            <Image resizeMode="contain" style={{ width: 48, height: 54 }} source={mapMarkerImg} />
-                        </Marker>
-                    );
-                })}
+                {events.map((event) => (
+                    <EventMarker
+                        key={event.id}
+                        coordinate={event.position}
+                        status={getEventStatus(event, authenticationContext?.value?.id)}
+                        onPress={handleNavigateToEventDetails}
+                    />
+                ))}
             </MapView>
 
             <View style={styles.footer}>
