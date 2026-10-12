@@ -9,6 +9,7 @@ import { RectButton } from 'react-native-gesture-handler';
 import MapView, { LatLng, PROVIDER_GOOGLE } from 'react-native-maps';
 import customMapStyle from '../../map-style.json';
 import EventMarker from '../components/EventMarker';
+import * as Colors from '../constants/Colors';
 import * as MapSettings from '../constants/MapSettings';
 import { AuthenticationContext } from '../context/AuthenticationContext';
 import * as api from '../services/api';
@@ -87,17 +88,17 @@ export default function EventsMap(props: StackScreenProps<AppStackParamList, 'Ev
                     {events.length} {events.length === 1 ? 'event' : 'events'} found
                 </Text>
                 <RectButton
-                    style={[styles.smallButton, { backgroundColor: '#00A3FF' }]}
+                    style={[styles.smallButton, { backgroundColor: Colors.BLUE }]}
                     onPress={handleNavigateToCreateEvent}
                 >
-                    <Feather name="plus" size={20} color="#FFF" />
+                    <Feather name="plus" size={20} color={Colors.WHITE} />
                 </RectButton>
             </View>
             <RectButton
-                style={[styles.logoutButton, styles.smallButton, { backgroundColor: '#4D6F80' }]}
+                style={[styles.logoutButton, styles.smallButton, { backgroundColor: Colors.SLATE }]}
                 onPress={handleLogout}
             >
-                <Feather name="log-out" size={20} color="#FFF" />
+                <Feather name="log-out" size={20} color={Colors.WHITE} />
             </RectButton>
         </View>
     );
@@ -129,7 +130,7 @@ const styles = StyleSheet.create({
         right: 24,
         bottom: 40,
 
-        backgroundColor: '#FFF',
+        backgroundColor: Colors.WHITE,
         borderRadius: 16,
         height: 56,
         paddingLeft: 24,
@@ -144,7 +145,7 @@ const styles = StyleSheet.create({
     footerText: {
         fontFamily: 'Nunito_700Bold',
         fontSize: 15,
-        color: '#8FA7B2',
+        color: Colors.GREY,
     },
 
     smallButton: {

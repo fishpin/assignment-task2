@@ -1,9 +1,11 @@
 import React, { useState } from 'react';
+import { Platform } from 'react-native';
 
 import { Feather } from '@expo/vector-icons';
 import { NavigationContainer } from '@react-navigation/native';
 import { createStackNavigator } from '@react-navigation/stack';
 import { AppStackParamList } from '../types/Navigation';
+import * as Colors from '../constants/Colors';
 
 const { Navigator, Screen } = createStackNavigator<AppStackParamList>();
 
@@ -27,7 +29,7 @@ export default function Routes() {
                 <Navigator
                     screenOptions={{
                         headerShown: false,
-                        cardStyle: { backgroundColor: '#F2F3F5' },
+                        cardStyle: { backgroundColor: Colors.CARD_BACKGROUND },
                     }}
                 >
                     <Screen name="Login" component={Login} />
@@ -41,21 +43,23 @@ export default function Routes() {
                             headerShown: true,
                             title: 'Event',
                             headerTitleAlign: 'center',
-                            headerTintColor: '#15B6D6',
+                            headerTintColor: Colors.CYAN,
                             headerBackTitleVisible: false,
-                            headerBackImage: ({ tintColor }) => <Feather name="arrow-left" size={24} color={tintColor} />,
-                            headerLeftContainerStyle: { paddingLeft: 14 },
+                            headerBackImage: ({ tintColor }) => (
+                                <Feather name="arrow-left" size={24} color={tintColor} />
+                            ),
+                            headerLeftContainerStyle: { paddingLeft: Platform.select({ ios: 28, default: 17 }) },
                             headerStyle: {
-                                backgroundColor: '#F9FAFC',
+                                backgroundColor: Colors.HEADER,
                                 elevation: 0,
                                 shadowOpacity: 0,
                                 borderBottomWidth: 1,
-                                borderBottomColor: '#DDE3F0',
+                                borderBottomColor: Colors.HEADER_BORDER,
                             },
                             headerTitleStyle: {
                                 fontFamily: 'Nunito_600SemiBold',
                                 fontSize: 15,
-                                color: '#8FA7B2',
+                                color: Colors.GREY,
                             },
                         }}
                     />

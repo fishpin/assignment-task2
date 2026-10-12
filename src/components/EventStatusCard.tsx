@@ -1,5 +1,6 @@
 import React from 'react';
 import { StyleSheet, Text } from 'react-native';
+import * as Colors from '../constants/Colors';
 import { Event, EventStatus } from '../types/Event';
 import InfoCard from './InfoCard';
 
@@ -11,12 +12,26 @@ interface EventStatusCardProps {
 export default function EventStatusCard({ event, status }: EventStatusCardProps) {
     switch (status) {
         case 'volunteered':
-            return <InfoCard label="Volunteered" color="#00A3FF" backgroundColor="#E5F6FF" featherIconName="check" />;
+            return (
+                <InfoCard
+                    label="Volunteered"
+                    color={Colors.BLUE}
+                    backgroundColor={Colors.BLUE_LIGHT}
+                    featherIconName="check"
+                />
+            );
         case 'full':
-            return <InfoCard label="Team is full" color="#8FA7B2" backgroundColor="#D3E2E5" featherIconName="slash" />;
+            return (
+                <InfoCard
+                    label="Team is full"
+                    color={Colors.GREY}
+                    backgroundColor={Colors.GREY_LIGHT}
+                    featherIconName="slash"
+                />
+            );
         case 'open':
             return (
-                <InfoCard label="Volunteer(s) needed" color="#FF8700" backgroundColor="#F2E6D9">
+                <InfoCard label="Volunteer(s) needed" color={Colors.ORANGE} backgroundColor={Colors.ORANGE_LIGHT}>
                     <Text style={styles.count}>
                         {event.volunteersIds.length}
                         <Text style={styles.countSeparator}> of </Text>
@@ -32,7 +47,7 @@ const styles = StyleSheet.create({
         fontFamily: 'Nunito_800ExtraBold',
         fontSize: 32,
         lineHeight: 36,
-        color: '#FF8700',
+        color: Colors.ORANGE,
     },
 
     countSeparator: {

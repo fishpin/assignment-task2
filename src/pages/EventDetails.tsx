@@ -8,6 +8,7 @@ import EventMarker from '../components/EventMarker';
 import EventStatusCard from '../components/EventStatusCard';
 import InfoCard from '../components/InfoCard';
 import Spacer from '../components/Spacer';
+import * as Colors from '../constants/Colors';
 import * as MapSettings from '../constants/MapSettings';
 import { AuthenticationContext } from '../context/AuthenticationContext';
 import * as api from '../services/api';
@@ -30,9 +31,7 @@ export default function EventDetails({ route }: StackScreenProps<AppStackParamLi
             .catch((error) => console.log(error));
     }, [event.organizerId]);
 
-    const handleShare = () => {
-        Share.share({ message: `${event.name}\n\n${event.description}` });
-    };
+    const handleShare = () => Share.share({ message: `${event.name}\n\n${event.description}` });
 
     const handleVolunteer = () => {
         if (!userId) return;
@@ -64,8 +63,8 @@ export default function EventDetails({ route }: StackScreenProps<AppStackParamLi
                 <View style={styles.row}>
                     <InfoCard
                         label={`${formatDate(dateTime)}\n${formatAMPM(dateTime).toUpperCase()}`}
-                        color="#00A3FF"
-                        backgroundColor="#E5F6FF"
+                        color={Colors.BLUE}
+                        backgroundColor={Colors.BLUE_LIGHT}
                         featherIconName="calendar"
                     />
                     <Spacer size={8} horizontal />
@@ -78,7 +77,7 @@ export default function EventDetails({ route }: StackScreenProps<AppStackParamLi
                             <BigButton
                                 style={styles.actionButton}
                                 label="Share"
-                                color="#00A3FF"
+                                color={Colors.BLUE}
                                 featherIconName="share-2"
                                 onPress={handleShare}
                             />
@@ -88,7 +87,7 @@ export default function EventDetails({ route }: StackScreenProps<AppStackParamLi
                                     <BigButton
                                         style={styles.actionButton}
                                         label="Call"
-                                        color="#00A3FF"
+                                        color={Colors.BLUE}
                                         featherIconName="phone"
                                         onPress={handleCall}
                                     />
@@ -96,7 +95,7 @@ export default function EventDetails({ route }: StackScreenProps<AppStackParamLi
                                     <BigButton
                                         style={styles.actionButton}
                                         label="Text"
-                                        color="#00A3FF"
+                                        color={Colors.BLUE}
                                         featherIconName="message-circle"
                                         onPress={handleText}
                                     />
@@ -105,7 +104,7 @@ export default function EventDetails({ route }: StackScreenProps<AppStackParamLi
                                 <BigButton
                                     style={styles.actionButton}
                                     label="Volunteer"
-                                    color="#FF8700"
+                                    color={Colors.ORANGE}
                                     featherIconName="plus"
                                     onPress={handleVolunteer}
                                 />
@@ -135,7 +134,7 @@ export default function EventDetails({ route }: StackScreenProps<AppStackParamLi
                 <View style={styles.row}>
                     <BigButton
                         label="Get Directions to Event"
-                        color="#4D6F80"
+                        color={Colors.SLATE}
                         featherIconName="map-pin"
                         onPress={handleGetDirections}
                     />
@@ -148,7 +147,7 @@ export default function EventDetails({ route }: StackScreenProps<AppStackParamLi
 const styles = StyleSheet.create({
     container: {
         flex: 1,
-        backgroundColor: '#EBF2F5',
+        backgroundColor: Colors.BACKGROUND,
     },
 
     image: {
@@ -165,20 +164,20 @@ const styles = StyleSheet.create({
         fontFamily: 'Nunito_800ExtraBold',
         fontSize: 24,
         lineHeight: 24,
-        color: '#5C8599',
+        color: Colors.SLATE_LIGHT,
     },
 
     organizer: {
         fontFamily: 'Nunito_400Regular',
         fontSize: 14,
         lineHeight: 14,
-        color: '#5C8599',
+        color: Colors.SLATE_LIGHT,
     },
 
     description: {
         fontFamily: 'Nunito_600SemiBold',
         fontSize: 16,
-        color: '#5C8599',
+        color: Colors.SLATE_LIGHT,
     },
 
     row: {
@@ -191,13 +190,13 @@ const styles = StyleSheet.create({
 
     divider: {
         height: 1,
-        backgroundColor: '#D3E2E6',
+        backgroundColor: Colors.GREY_LIGHT,
     },
 
     routeMap: {
         aspectRatio: 1,
         borderWidth: 1,
-        borderColor: '#D3E2E5',
+        borderColor: Colors.GREY_LIGHT,
         borderRadius: 8,
         overflow: 'hidden',
     },
