@@ -1,13 +1,21 @@
 import { StackScreenProps } from '@react-navigation/stack';
-import React, { useEffect, useState } from 'react';
+import React, { useContext, useEffect, useState } from 'react';
 import { Image, ScrollView, StyleSheet, Text, View } from 'react-native';
+import EventStatusCard from '../components/EventStatusCard';
+import InfoCard from '../components/InfoCard';
 import Spacer from '../components/Spacer';
+import { AuthenticationContext } from '../context/AuthenticationContext';
 import * as api from '../services/api';
 import { AppStackParamList } from '../types/Navigation';
 import { User } from '../types/User';
+import { formatAMPM, formatDate } from '../utils';
+import { getEventStatus } from '../utils/events';
 
 export default function EventDetails({ route }: StackScreenProps<AppStackParamList, 'EventDetails'>) {
     const { event } = route.params;
+    const dateTime = new Date(event.dateTime);
+    const authenticationContext = useContext(AuthenticationContext);
+    const status = getEventStatus(event, authenticationContext?.value?.id);
     const [organizer, setOrganizer] = useState<User>();
 
     useEffect(() => {
@@ -29,6 +37,17 @@ export default function EventDetails({ route }: StackScreenProps<AppStackParamLi
                 )}
                 <Spacer size={16} />
                 <Text style={styles.description}>{event.description}</Text>
+                <Spacer size={24} />
+                <View style={styles.row}>
+                    <InfoCard
+                        label={`${formatDate(dateTime)}\n${formatAMPM(dateTime).toUpperCase()}`}
+                        color="#00A3FF"
+                        backgroundColor="#E5F6FF"
+                        featherIconName="calendar"
+                    />
+                    <Spacer size={8} horizontal />
+                    <EventStatusCard event={event} status={status} />
+                </View>
             </View>
         </ScrollView>
     );
@@ -68,5 +87,9 @@ const styles = StyleSheet.create({
         fontFamily: 'Nunito_600SemiBold',
         fontSize: 16,
         color: '#5C8599',
+    },
+
+    row: {
+        flexDirection: 'row',
     },
 });
